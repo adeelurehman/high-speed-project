@@ -1,5 +1,4 @@
 import random
-import struct
 
 # Generate 10000 pairs of 16-bit signed integers
 pairs = []
@@ -8,7 +7,10 @@ for i in range(10000):
     y = random.randint(-32768, 32767)
     pairs.append((x, y))
 
-# Write the packed pairs to a dat file
-with open('pairs.dat', 'wb') as f:
+# Write the pairs to a dat file as strings
+with open('pairs.dat', 'w') as f:
     for pair in pairs:
-        f.write(f"{pair[0]} {pair[1]}")
+        # Convert the pair to a string
+        data = f"{pair[0]} {pair[1]}\n"
+        # Write the string to the file
+        f.write(data)
