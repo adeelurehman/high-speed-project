@@ -10,7 +10,20 @@ def right_shift(input, shift):
 def accurate_RCA_8_bit(A, B):
     return (A + B) & 0xFF
 
-def grayscale_truth(RGB_pixel_32):
+def approximate_RCA_3_bit_LOA(A, B):
+    #approximate adder for 3 bits
+    lower_three = (A | B) & 0x07 # 3 bit or for lower bits
+
+    #accurate adder
+    Cin = (((A & 0x04) & (B & 0x04))) >> 2 # Cin is the and of bit 2
+    A = A >> 3
+    B = B >> 3
+
+    add = ((A + B + Cin) << 3) | lower_three
+    return add
+
+
+def architecture_truth(RGB_pixel_32):
     R, G, B = splitter(RGB_pixel_32)
     return int(0.2989 * R + 0.5870 * G + 0.1140 * B)
 
@@ -46,7 +59,7 @@ def architecture_1(RGB_pixel_32):
     Y = accurate_RCA_8_bit(Y1, Y2)
     return Y
 
-# Similar to architcure 1, but bit flip 4 & 5 to randomly add 16 back to grayscale to round up
+# Approximate RCA with LOA of 3 bits combined with architecture 1
 def architecture_2(RGB_pixel_32):
     R, G, B = splitter(RGB_pixel_32)
 
@@ -55,9 +68,9 @@ def architecture_2(RGB_pixel_32):
     B1 = right_shift(B, 4)
     B2 = right_shift(B, 5)
 
-    Y1 = accurate_RCA_8_bit(B1, B2)
-    Y2 = accurate_RCA_8_bit(R1, G1)
-    Y = accurate_RCA_8_bit(Y1, Y2)
+    Y1 = approximate_RCA_3_bit_LOA(B1, B2)
+    Y2 = approximate_RCA_3_bit_LOA(R1, G1)
+    Y = approximate_RCA_3_bit_LOA(Y1, Y2)
 
-    Y = Y | 0x18 # flip bit 4 & 5 to add 8 + 16 in most cases
+    Y = Y # flip bit 4 & 5 to add 8 + 16 in most cases
     return Y

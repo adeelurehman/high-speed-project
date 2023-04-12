@@ -14,7 +14,7 @@ def convert_truth():
             pixel = img[row][col]
             value = (pixel[0] << 16) + (pixel[1] << 8) + pixel[0]
 
-            grayscale_value = grayscale_truth(value)
+            grayscale_value = architecture_truth(value)
 
             row_local.append(grayscale_value)
         gray_scale_img.append(row_local)
