@@ -57,6 +57,7 @@ def architecture_1(RGB_pixel_32):
     Y2 = accurate_RCA_8_bit(R1, G1)
     Y = accurate_RCA_8_bit(Y1, Y2)
     return Y
+    
 
 # Approximate RCA with LOA of 3 bits combined with architecture 1
 def architecture_2(RGB_pixel_32):
@@ -72,4 +73,32 @@ def architecture_2(RGB_pixel_32):
     Y = approximate_RCA_3_bit_LOA(Y1, Y2)
 
     Y = Y # flip bit 4 & 5 to add 8 + 16 in most cases
+    return Y
+
+# Reduce RCA adds by reducing bits going into 8 bit cumulative adder
+def architecture_3(RGB_pixel_32):
+    R, G, B = splitter(RGB_pixel_32)
+
+    R1 = right_shift(R, 2)
+    B1 = right_shift(B, 4)
+    G1 = right_shift(G, 1)
+    G2 = right_shift(G, 4)
+
+    Y1 = accurate_RCA_8_bit(G1, G2)
+    Y2 = accurate_RCA_8_bit(R1, B1)
+    Y = accurate_RCA_8_bit(Y1, Y2)
+    return Y
+
+# Reduce RCA adds by reducing bits going into 8 bit cumulative adder
+def architecture_4(RGB_pixel_32):
+    R, G, B = splitter(RGB_pixel_32)
+
+    R1 = right_shift(R, 2)
+    R2 = right_shift(R, 5)
+    B1 = right_shift(B, 4)
+    G1 = right_shift(G, 1)
+
+    Y1 = accurate_RCA_8_bit(R1, R2)
+    Y2 = accurate_RCA_8_bit(B1, G1)
+    Y = accurate_RCA_8_bit(Y1, Y2)
     return Y
