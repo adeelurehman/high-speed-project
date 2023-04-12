@@ -84,6 +84,6 @@ if __name__ == "__main__":
     print(f"Arch3 average error (value): {arch3_average_error}")
     print(f"Arch3 average error (percent): {arch3_percent_error}")
 
-    print(f"Arch4 average error (value): {arch4_average_error}")
-    print(f"Arch4 average error (percent): {arch4_percent_error}")
+    #print(f"Arch4 average error (value): {arch4_average_error}")
+    #print(f"Arch4 average error (percent): {arch4_percent_error}")
     
