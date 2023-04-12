@@ -1,12 +1,12 @@
 # Bitwise
 def genSum(A, B, Cin):
-    return (A&B&Cin) | (A&Cin | B) & ~Cin
-    # return (A+B+Cin)&1
+    #return (A&B&Cin) | (A&Cin | B) & ~Cin
+    return (A+B+Cin)&1
 
 # Bitwise
 def genCarry(A, B, Cin):
-    return A & Cin | B
-    # return int(((A+B+Cin) >> 1) > 0)
+    #return A & Cin | B
+    return int(((A+B+Cin) >> 1) > 0)
 
 # Integer
 def add(A, B, Cin):
