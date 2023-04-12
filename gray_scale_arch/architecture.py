@@ -22,7 +22,6 @@ def approximate_RCA_3_bit_LOA(A, B):
     add = ((A + B + Cin) << 3) | lower_three
     return add
 
-
 def architecture_truth(RGB_pixel_32):
     R, G, B = splitter(RGB_pixel_32)
     return int(0.2989 * R + 0.5870 * G + 0.1140 * B)
